@@ -46,25 +46,25 @@ function checkSet(potentialSet) {
 function createDeck() {
     var deck = [];
     var id = 1;
-    
+
     const colors = [
         'red',
         'purple',
         'green'
     ]
-    
+
     const numbers = [
         '1',
         '2',
         '3'
     ]
-    
+
     const shapes = [
         'worm',
         'diamond',
         'pill'
     ]
-    
+
     const fills = [
         'solid',
         'stripe',
@@ -126,7 +126,7 @@ function checkForSet(cardsState) {
     }
 }
 
-function gameOver(){
+function gameOver() {
     console.log('no set possible, no cards left, game over');
     alert('you found all the sets!');
 }
@@ -233,7 +233,7 @@ function renderCards(cardsState) {
 
 }
 
-function renderScoreBoard(cardsLeft, setsFound){
+function renderScoreBoard(cardsLeft, setsFound) {
     var scoreBoardEl = document.getElementById('scoreboard');
     scoreBoardEl.innerHTML = `Found ${setsFound} sets. ${cardsLeft} cards left in the deck.`;
 }
