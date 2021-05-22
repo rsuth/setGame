@@ -219,7 +219,7 @@ function renderCards(cardsState) {
                 n.classList.add('selected');
             }
             let label = `<p>${i}</p>`
-            n.innerHTML = `<img src='images/${card.id}.png'>`;
+            n.innerHTML = `<img src='/set/images/${card.id}.png'>`;
             n.addEventListener("click", function () {
                 if (n.classList.contains('selected')) {
                     removeCardFromSelection(i);
