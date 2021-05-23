@@ -140,21 +140,33 @@ function addCardToSelection(index) {
             console.log(`user found a set: ${selectedIndices[0]}, ${selectedIndices[1]}, ${selectedIndices[2]}`);
             setsFound += 1;
             flashMsg('Set!')
+            
+            // sort selected indices in decending order to take care of the 
+            // bug where removal removes the wrong stuff because the indices of
+            // the cards in cardsstate changes after each removal.
+            // https://stackoverflow.com/questions/9425009/remove-multiple-elements-from-array-in-javascript-jquery
+            selectedIndices.sort((a,b) => {return b-a});
+
             // first check if were in the case where we had extra cards
             if (cardsState.length <= 12) {
-                // normal case:
-                // replace the set we found with cards from the deck.
                 selectedIndices.forEach((i) => {
                     let c = deck.pop();
                     if (c !== undefined) {
+                        // there are cards left, replace
+                        // the set with the next 3 cards from the deck.
                         c.selected = false;
                         cardsState[i] = c;
                     } else {
+                        // there are no cards in the deck. simply remove the cards.
                         cardsState.splice(i, 1);
                     }
                 });
             } else {
-                // we had to add extra cards, so don't replace them
+                // we had to add extra cards, so just delete the set with splice.
+                // since selectedIndices is sorted greatest -> least
+                // we are removing from the end of the array
+                // so we dont have to worry about cardStates order shifting mid
+                // delete loop.
                 selectedIndices.forEach((i) => {
                     cardsState.splice(i, 1);
                 });
@@ -218,7 +230,6 @@ function renderCards(cardsState) {
             if (card.selected) {
                 n.classList.add('selected');
             }
-            let label = `<p>${i}</p>`
             n.innerHTML = `<img src='images/${card.id}.png'>`;
             n.addEventListener("click", function () {
                 if (n.classList.contains('selected')) {
