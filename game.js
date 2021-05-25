@@ -87,6 +87,7 @@ function createDeck() {
 function drawNewGame() {
     let cards = []
     do {
+        cards = []
         deck = shuffle(createDeck());
         for (i = 0; i < 12; i++) {
             let c = deck.pop();
